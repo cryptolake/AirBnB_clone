@@ -29,13 +29,13 @@ class BaseModel():
             format(self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
-        """When instance is updated."""
+        """Save Instance to storage."""
         self.updated_at = datetime.now()
         storage.save()
 
     def to_dict(self):
         """Class to dict."""
-        dict = self.__dict__
+        dict = self.__dict__.copy()
         dict['__class__'] = self.__class__.__name__
         dict['created_at'] = self.created_at.isoformat()
         dict['updated_at'] = self.updated_at.isoformat()
