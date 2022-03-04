@@ -17,15 +17,11 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
 
     def do_quit(self, arg):
-        """
-        Quit command to exit the program.
-        """
+        """Quit command to exit the program."""
         return True
 
     def do_EOF(self, arg):
-        """
-        Quit command to exit the program.
-        """
+        """Quit command to exit the program."""
         return True
 
     def do_create(self, arg):
@@ -34,7 +30,6 @@ class HBNBCommand(cmd.Cmd):
 
         Usage: create [Class Name]
         """
-
         if arg == "":
             print("** class name missing **")
 
@@ -42,7 +37,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
         else:
-            new_instance = eval(arg)() 
+            new_instance = eval(arg)()
             storage.save()
             print(new_instance.id)
 
@@ -64,14 +59,15 @@ class HBNBCommand(cmd.Cmd):
             else:
                 objs = storage.all()
                 obj = obj[0]+'.'+obj[1]
-                if obj in objs: 
+                if obj in objs:
                     print(objs[obj])
                 else:
                     print("** no instance found **")
 
     def do_destroy(self, arg):
         """
-        Deletes instance of class by idself.
+        Delete instance of class by idselfself.
+
         Usage: destro [class] [id]
         """
         obj = arg.split(' ')
@@ -86,7 +82,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 objs = storage.all()
                 obj = obj[0]+'.'+obj[1]
-                if obj in objs: 
+                if obj in objs:
                     del objs[obj]
                     storage.save()
                 else:
@@ -119,6 +115,7 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, arg):
         """
         Upadate the object with attribute.
+
         Usage: update <class name> <id> <attribute name> "<attribute value>"
         """
         args = arg.split(' ')
@@ -135,7 +132,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             objs = storage.all()
             obj = args[0] + '.' + args[1]
-            if obj in objs: 
+            if obj in objs:
                 if len(args) == 2:
                     print("** attribute name missing **")
                 if len(args) == 3:
@@ -144,7 +141,8 @@ class HBNBCommand(cmd.Cmd):
                     last = args[len(args) - 1]
                     value = args[3]
                     attribute = args[2]
-                    if args[3][0] == "\"" and last[len(last) - 1] == "\"" and len(args) > 4:
+                    if args[3][0] == "\"" and\
+                            last[len(last) - 1] == "\"" and len(args) > 4:
                         for i in range(4, len(args)):
                             value += ' ' + args[i]
                     else:
@@ -154,9 +152,9 @@ class HBNBCommand(cmd.Cmd):
                     if hasattr(objs[obj], attribute):
                         if type(getattr(objs[obj], attribute)) is str:
                             value = str(value)
-                        elif type(getattr(objs[obj], attribute)) is int: 
+                        elif type(getattr(objs[obj], attribute)) is int:
                             value = int(value)
-                        elif type(getattr(objs[obj], attribute)) is float: 
+                        elif type(getattr(objs[obj], attribute)) is float:
                             value = float(value)
 
                     setattr(objs[obj], attribute, value)
@@ -166,8 +164,9 @@ class HBNBCommand(cmd.Cmd):
 
 
 def class_exist(_class):
-    classes = ["BaseModel", "User", "State", "City", "Amenity",
-                "Place", "Review"]
+    """Check if class exists."""
+    classes = ["BaseModel", "User", "State", "City",
+               "Amenity", "Place", "Review"]
     return _class not in classes
 
 
