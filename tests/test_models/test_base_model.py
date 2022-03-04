@@ -2,7 +2,7 @@
 import sys
 sys.path.append('../..')
 import unittest
-from models import BaseModel
+from ...models.base_model import BaseModel
 
 
 

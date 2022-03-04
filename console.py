@@ -1,7 +1,15 @@
 #!/usr/bin/python3
 """The main command line for the backend of the airbnb project."""
 import cmd
-from models.base_model import BaseModel, storage
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models import storage
+
 
 class HBNBCommand(cmd.Cmd):
     """Cmd SubClass."""
@@ -12,13 +20,13 @@ class HBNBCommand(cmd.Cmd):
         """
         Quit command to exit the program.
         """
-        exit()
+        return True
 
     def do_EOF(self, arg):
         """
         Quit command to exit the program.
         """
-        exit()
+        return True
 
     def do_create(self, arg):
         """
@@ -34,7 +42,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
         else:
-            new_instance = BaseModel() 
+            new_instance = eval(arg)() 
             storage.save()
             print(new_instance.id)
 
@@ -133,22 +141,33 @@ class HBNBCommand(cmd.Cmd):
                 if len(args) == 3:
                     print("** value missing **")
                 else:
-                    args[3] = args[3].strip("\"'")
-                    if hasattr(objs[obj], args[2]):
-                        if type(getattr(objs[obj], args[2])) is str:
-                            args[3] = str(args[3])
-                        elif type(getattr(objs[obj], args[2])) is int: 
-                            args[3] = int(args[3])
-                        elif type(getattr(objs[obj], args[2])) is float: 
-                            args[3] = float(args[3])
+                    last = args[len(args) - 1]
+                    value = args[3]
+                    attribute = args[2]
+                    if args[3][0] == "\"" and last[len(last) - 1] == "\"" and len(args) > 4:
+                        for i in range(4, len(args)):
+                            value += ' ' + args[i]
+                    else:
+                        value = args[3]
+                    value = value.strip("\"'")
+                    attribute = attribute.strip("\"'")
+                    if hasattr(objs[obj], attribute):
+                        if type(getattr(objs[obj], attribute)) is str:
+                            value = str(value)
+                        elif type(getattr(objs[obj], attribute)) is int: 
+                            value = int(value)
+                        elif type(getattr(objs[obj], attribute)) is float: 
+                            value = float(value)
 
-                    setattr(objs[obj], args[2], args[3])
+                    setattr(objs[obj], attribute, value)
+                    objs[obj].save()
             else:
                 print("** no instance found **")
 
 
 def class_exist(_class):
-    classes = ["BaseModel"]
+    classes = ["BaseModel", "User", "State", "City", "Amenity",
+                "Place", "Review"]
     return _class not in classes
 
 

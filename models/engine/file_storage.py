@@ -3,7 +3,6 @@
 from json import dump, load
 from os.path import exists
 
-
 class FileStorage():
     """Class for serialization and deserialization of json file."""
 
@@ -28,9 +27,16 @@ class FileStorage():
 
     def reload(self):
         """Reload objects from file."""
-        from .. import base_model
+        from ..base_model import BaseModel
+        from ..user import User
+        from ..state import State
+        from ..city import City
+        from ..amenity import Amenity
+        from ..place import Place
+        from ..review import Review
+
         if exists(__class__.__file_path):
             with open(__class__.__file_path, 'r') as f:
                 objs = load(f)
             for key in objs:
-                __class__.__objects[key] = base_model.BaseModel(**objs[key])
+                __class__.__objects[key] = eval(objs[key]['__class__'])(**objs[key])
