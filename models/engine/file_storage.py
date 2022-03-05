@@ -3,6 +3,7 @@
 from json import dump, load
 from os.path import exists
 
+
 class FileStorage():
     """Class for serialization and deserialization of json file."""
 
@@ -39,4 +40,5 @@ class FileStorage():
             with open(__class__.__file_path, 'r') as f:
                 objs = load(f)
             for key in objs:
-                __class__.__objects[key] = eval(objs[key]['__class__'])(**objs[key])
+                __class__.__objects[key] =\
+                        eval(objs[key]['__class__'])(**objs[key])
