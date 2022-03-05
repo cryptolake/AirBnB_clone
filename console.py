@@ -14,7 +14,7 @@ from models import storage
 class HBNBCommand(cmd.Cmd):
     """Cmd SubClass."""
 
-    prompt = '(hbnb) '
+    prompt = '(hbnb)'
 
     def emptyline(self):
         """Do nothing."""
