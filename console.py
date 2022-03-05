@@ -37,7 +37,7 @@ class HBNBCommand(cmd.Cmd):
         if arg == "":
             print("** class name missing **")
 
-        elif class_exist(arg):
+        elif class_nexist(arg):
             print("** class doesn't exist **")
 
         else:
@@ -56,7 +56,7 @@ class HBNBCommand(cmd.Cmd):
         if arg == "":
             print("** class name missing **")
         else:
-            if class_exist(obj[0]):
+            if class_nexist(obj[0]):
                 print("** class doesn't exist **")
             elif len(obj) == 1:
                 print("** instance id missing **")
@@ -79,7 +79,7 @@ class HBNBCommand(cmd.Cmd):
         if arg == "":
             print("** class name missing **")
         else:
-            if class_exist(obj[0]):
+            if class_nexist(obj[0]):
                 print("** class doesn't exist **")
             elif len(obj) == 1:
                 print("** instance id missing **")
@@ -99,16 +99,15 @@ class HBNBCommand(cmd.Cmd):
         Usage: all [[class]]
         """
         objs = storage.all()
+        obj_str = []
 
         if arg == "":
-            obj_str = []
             for obj in objs:
                 obj_str.append(str(objs[obj]))
             print(obj_str)
 
         else:
-            obj_str = []
-            if class_exist(arg):
+            if class_nexist(arg):
                 print("** class doesn't exist **")
             else:
                 for obj in objs:
@@ -127,7 +126,7 @@ class HBNBCommand(cmd.Cmd):
         if arg == "":
             print("** class name missing **")
 
-        elif class_exist(args[0]):
+        elif class_nexist(args[0]):
             print("** class doesn't exist **")
 
         elif len(args) == 1:
@@ -151,8 +150,8 @@ class HBNBCommand(cmd.Cmd):
                             value += ' ' + args[i]
                     else:
                         value = args[3]
-                    value = value.strip("\"'")
-                    attribute = attribute.strip("\"'")
+                    value = value.strip("\"")
+                    attribute = attribute.strip("\"")
                     if hasattr(objs[obj], attribute):
                         if type(getattr(objs[obj], attribute)) is str:
                             value = str(value)
@@ -167,7 +166,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
 
-def class_exist(_class):
+def class_nexist(_class):
     """Check if class exists."""
     classes = ["BaseModel", "User", "State", "City",
                "Amenity", "Place", "Review"]

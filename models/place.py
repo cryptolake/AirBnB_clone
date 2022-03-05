@@ -1,8 +1,12 @@
 #!/usr/bin/python3
+"""Represent Place."""
+
 from .base_model import BaseModel
 
 
 class Place(BaseModel):
+    """Represent Place."""
+
     city_id = ""
     user_id = ""
     name = ""
