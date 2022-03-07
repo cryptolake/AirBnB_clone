@@ -138,7 +138,7 @@ class HBNBCommand(cmd.Cmd):
             if obj in objs:
                 if len(args) == 2:
                     print("** attribute name missing **")
-                if len(args) == 3:
+                elif len(args) == 3:
                     print("** value missing **")
                 else:
                     last = args[len(args) - 1]
