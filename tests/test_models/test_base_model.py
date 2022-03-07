@@ -25,5 +25,10 @@ class TestBaseModel(unittest.TestCase):
         self.m2_json = self.m2.to_dict()
         self.assertEqual(self.m1_json, self.m2_json)
 
+    def test_to_dict(self):
+       mod = BaseModel()
+       dic = mod.to_dict()
+       self.assertNotEqual(dic, {})
+
 if __name__ == '__main__':
     unittest.main()
