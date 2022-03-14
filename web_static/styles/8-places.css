@@ -27,6 +27,8 @@
 	height: 60px;
 	display: inline-block;
 	text-align: center;
+	margin-bottom: 2%;
+	margin-top: 0%;
 }
 
 .price_by_night > h4 {
@@ -49,6 +51,7 @@
 	margin: 20px;
 	border: 1px solid #FF5A5F;
 	border-radius: 4px;
+	padding-top: 2%;
 	text-align: center;
 }
 
